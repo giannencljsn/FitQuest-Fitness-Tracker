@@ -149,6 +149,12 @@
             const distance = +inputDistance.value;
             const duration = +inputDuration.value;
 
+            //If walking, creating walking object
+            if(type === 'walking'){
+                //validate input
+                if(!validateInput(distance, duration))
+                    return alert('Input have to be positive numbers!');
+            }
             //If running, create running object
             if(type === 'running'){
                  
