@@ -200,22 +200,24 @@
 
             console.log(workout);
             //Render workout data on map as marker
-             L.marker([lat, lng]).addTo(this.#map)
+             this.renderWorkoutMarker(workout);
+            //Render workout on list
+                
+            //Hide form + Clear input fields
+            inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value = '';
+
+        }
+        renderWorkoutMarker(workout){
+            L.marker([lat, lng]).addTo(this.#map)
                  .bindPopup(
                      L.popup({
                          maxWidth: 250,
                          minWidth: 100,
                          autoClose: false,
                          closeOnClick: false,
-                         className: 'running-popup',
+                         className: `${type}-popup`,
                      })
-                 ).setPopupContent('Workout').openPopup();
-            //Render workout on list
-
-            //Hide form + Clear input fields
-            inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value = '';
-
-           
+                 ).setPopupContent(workout.distance).openPopup();
         }
     }
 
