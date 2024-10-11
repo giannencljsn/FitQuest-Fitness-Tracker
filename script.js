@@ -139,11 +139,16 @@
        
 
         _newWorkout(e){
+            //Validate if input is positive
+            const positiveValue = (...inputs) => inputs.every(inp => inp > 0);
+            //Validate if input is finite
             const validateInput = (...inputs) => 
                 inputs.every(inp => Number.isFinite(inp));
             e.preventDefault();
             console.log(this);
 
+
+            
             //Get form data
             const type = inputType.value;
             const distance = +inputDistance.value;
@@ -152,22 +157,29 @@
             //If walking, creating walking object
             if(type === 'walking'){
                 //validate input
-                if(!validateInput(distance, duration))
-                    return alert('Input have to be positive numbers!');
+                if(!validateInput(distance, duration) 
+                    || !positiveValue(distance, duration))
+                    {
+                        return alert('Input have to be positive numbers!');
+                    }
             }
             //If running, create running object
             if(type === 'running'){
                  
                 const cadence = +inputCadence.value;
                 //Check if data is valid
-                if(!validateInput(distance, duration,cadence))
-                    return alert('Input have to be positive numbers!');
+                if(!validateInput(distance, duration,cadence) 
+                    || !positiveValue(distance, duration,cadence)){
+                        return alert('Input have to be positive numbers!');
+                }
+                   
             }
             //If cycling, create cycling object
             if(type === 'cycling'){
                 const elevation = +inputElevation.value;
                 //Check if data is valid
-                if(!validateInput(distance, duration, elevation))
+                if(!validateInput(distance, duration, elevation) 
+                || !positiveValue(distance, duration))
                     return alert('Input have to be positive numbers!');
             }
             //Add new workout object to workout array
