@@ -13,6 +13,57 @@
 
     let map, mapEvent;
 
+
+    class Workout{
+        date = new Date();
+        id = (new Date() + ''.slice(-10));
+
+        constructor(coords, distance, duration){
+            
+            this.coords = coords; // [lat, lng]
+            this.distance = distance; // in km
+            this.duration = duration; // in min
+            
+            
+        }
+        
+    }
+  
+    class Running extends Workout{
+        constructor(coords, distance, duration, cadence){
+            super(coords, distance, duration);
+            this.cadence = cadence;
+            this.calcPace();
+        }
+
+        calcPace(){
+            //min/km
+            this.pace = this.duration / this.distance;
+            return this.pace;
+        }
+    }
+
+    class Cycling extends Workout{
+        constructor(coords, distance, duration, elevationGain){
+            super(coords, distance, duration);
+            this.elevationGain = elevationGain;
+            this.calcSpeed();
+        }
+
+        calcSpeed(){
+            //km/h
+            this.speed = this.distance / (this.duration / 60);
+            return this.speed;
+        }
+    }
+
+    // Testing the classes of Running/Cycling
+    // const run1 = new Running([39, -12], 5.2, 24, 178);
+    // const cycle1 = new Cycling([39, -12], 27, 95, 529);
+
+    console.log(run1 , cycle1);
+    ////////////////////////
+    //Architecture
     class App {
         #map;
         #mapEvent;
@@ -37,7 +88,7 @@
             console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
             
             const coords = [latitude, longitude];
-
+          
             console.log(this);
             this.#map = L.map('map').setView(coords, 13);
 
