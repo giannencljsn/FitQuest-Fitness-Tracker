@@ -28,6 +28,20 @@
         }
         
     }
+
+    class Walking extends Workout{
+        constructor(coords, distance, duration){
+            super(coords, distance, duration);
+            this.calcPace();
+
+        }
+        
+        calcPace(){
+            //min/km
+            this.pace = this.duration / this.distance;
+            return this.pace;
+        }
+    }
   
     class Running extends Workout{
         constructor(coords, distance, duration, cadence){
@@ -57,11 +71,13 @@
         }
     }
 
-    // Testing the classes of Running/Cycling
+    // Testing the classes of Walking/Running/Cycling
+    // const walk1 = new Walking([34.0522, -118.2437], 5, 60); // 5 km in 60 minutes
+    // console.log(walk1.pace); // Output: 12 min/km
     // const run1 = new Running([39, -12], 5.2, 24, 178);
     // const cycle1 = new Cycling([39, -12], 27, 95, 529);
 
-    console.log(run1 , cycle1);
+    // console.log(run1 , cycle1);
     ////////////////////////
     //Architecture
     class App {
@@ -107,9 +123,20 @@
         }
 
         _toggleElevationField(){
-            inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-            inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
+            // Check the selected workout type
+            if(inputType.value === 'walking'){
+                inputElevation.closest('.form__row').classList.add('form__row--hidden');
+                inputCadence.closest('.form__row').classList.add('form__row--hidden');
+
+            }else if (inputType.value === 'running') {
+                inputCadence.closest('.form__row').classList.remove('form__row--hidden');
+                inputElevation.closest('.form__row').classList.add('form__row--hidden');
+            } else if (inputType.value === 'cycling') {
+                inputCadence.closest('.form__row').classList.add('form__row--hidden');
+                inputElevation.closest('.form__row').classList.remove('form__row--hidden');
+            }
         }
+       
 
         _newWorkout(e){
             e.preventDefault();
