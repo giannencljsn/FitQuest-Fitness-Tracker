@@ -139,32 +139,50 @@
        
 
         _newWorkout(e){
+            const validateInput = (...inputs) => 
+                inputs.every(inp => Number.isFinite(inp));
             e.preventDefault();
             console.log(this);
 
             //Get form data
-            //Check if data is valid
+            const type = inputType.value;
+            const distance = +inputDistance.value;
+            const duration = +inputDuration.value;
+
             //If running, create running object
+            if(type === 'running'){
+                 
+                const cadence = +inputCadence.value;
+                //Check if data is valid
+                if(!validateInput(distance, duration,cadence))
+                    return alert('Input have to be positive numbers!');
+            }
             //If cycling, create cycling object
+            if(type === 'cycling'){
+                const elevation = +inputElevation.value;
+                //Check if data is valid
+                if(!validateInput(distance, duration, elevation))
+                    return alert('Input have to be positive numbers!');
+            }
             //Add new workout object to workout array
             //Render workout data on map as marker
+             const { lat, lng } = this.#mapEvent.latlng;
+             L.marker([lat, lng]).addTo(this.#map)
+                 .bindPopup(
+                     L.popup({
+                         maxWidth: 250,
+                         minWidth: 100,
+                         autoClose: false,
+                         closeOnClick: false,
+                         className: 'running-popup',
+                     })
+                 ).setPopupContent('Workout').openPopup();
             //Render workout on list
 
             //Hide form + Clear input fields
             inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value = '';
 
-            //Display marker
-            const { lat, lng } = this.#mapEvent.latlng;
-            L.marker([lat, lng]).addTo(this.#map)
-                .bindPopup(
-                    L.popup({
-                        maxWidth: 250,
-                        minWidth: 100,
-                        autoClose: false,
-                        closeOnClick: false,
-                        className: 'running-popup',
-                    })
-                ).setPopupContent('Workout').openPopup();
+           
         }
     }
 
