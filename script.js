@@ -115,7 +115,15 @@
             e.preventDefault();
             console.log(this);
 
-            //Clear input fields
+            //Get form data
+            //Check if data is valid
+            //If running, create running object
+            //If cycling, create cycling object
+            //Add new workout object to workout array
+            //Render workout data on map as marker
+            //Render workout on list
+
+            //Hide form + Clear input fields
             inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value = '';
 
             //Display marker
