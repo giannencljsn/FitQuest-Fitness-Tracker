@@ -338,8 +338,16 @@
         }
 
         _getLocalStorage(){
-            const data = localStorage.getItem('workouts');
+            const data = JSON.parse(localStorage.getItem('workouts'));
             console.log(data);
+
+            if(!data) return;
+
+            this.#workouts = data;
+            this.#workouts.forEach(work => {
+                this._renderWorkout(work);
+                this._renderWorkoutMarker(work);
+            });
         }
     }
 
