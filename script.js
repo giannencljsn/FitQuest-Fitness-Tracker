@@ -19,7 +19,7 @@
     class Workout{
         date = new Date();
         id = (new Date() + ''.slice(-10));
-
+        clicks = 0;
         constructor(coords, distance, duration){
             
             this.coords = coords; // [lat, lng]
@@ -34,6 +34,10 @@
          
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} ${this.date.getDate()}`;
+        }
+
+        click(){
+            this.clicks++;
         }
         
     }
@@ -87,12 +91,12 @@
     }
 
     // Testing the classes of Walking/Running/Cycling
-    // const walk1 = new Walking([34.0522, -118.2437], 5, 60); // 5 km in 60 minutes
-    // console.log(walk1.pace); // Output: 12 min/km
-    // const run1 = new Running([39, -12], 5.2, 24, 178);
-    // const cycle1 = new Cycling([39, -12], 27, 95, 529);
+    const walk1 = new Walking([34.0522, -118.2437], 5, 60); // 5 km in 60 minutes
+    console.log(walk1.pace); // Output: 12 min/km
+    const run1 = new Running([39, -12], 5.2, 24, 178);
+    const cycle1 = new Cycling([39, -12], 27, 95, 529);
 
-    // console.log(run1 , cycle1);
+    console.log(run1 , cycle1);
     ////////////////////////
     //Architecture
     class App {
@@ -320,6 +324,8 @@
                     duration: 1
                 }
             });
+
+            workout.click();
         }
     }
 
